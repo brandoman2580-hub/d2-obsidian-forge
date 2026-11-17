@@ -1,35 +1,21 @@
-# Tasks
+# Obsidian Forge — Sprint & Backlog
 
-> Prioritized backlog. Move done items to a short "Done" section or strike through; keep acceptance criteria explicit.
+## In Progress
+- [ ] **INFRA-01:** Commit `AGENTS.md`, `.cursor/rules/*.mdc`, `.cursor/memory/*`, and `.cursor/docs/*` to repository.
+- [ ] **INFRA-02:** Verify `npm run lint && npm run build` passes cleanly locally and on Vercel.
 
-## P0 — Foundation
+## Up Next — Phase 1: Backend & Auth
+- [ ] **DB-01:** Create `supabase/migrations/0001_initial_schema.sql` with tables, indexes, and RLS policies.
+  * *Acceptance Criteria:* `user_loadouts` blocks cross-user writes; Guest users can `SELECT` public loadouts and `activities`.
+- [ ] **AUTH-01:** Implement `supabase/functions/bungie-auth` Edge Function + Angular `AuthStore` signal service with Guest Mode fallback.
+- [ ] **PIPE-01:** Build Zod-validated manifest & Destiny 2 Compendium sync script + `pg_cron` schedule.
 
-- [ ] **Confirm stack pins** — Angular major, Node LTS, Supabase CLI/project link  
-  - AC: versions recorded in README or package.json; AGENTS.md commands updated.
-
-- [ ] **Scaffold Angular app under `src/`** — standalone, OnPush defaults  
-  - AC: `npm start` serves a shell; routes stub for Activity / Loadout / Vault / Guest; aligns with `10-angular-black-armory.mdc`.
-
-- [ ] **Init Supabase project under `supabase/`** — migrations matching `02-data-schema.md` stubs  
-  - AC: local `supabase start` works; RLS enabled on user tables; schema TODOs resolved or explicitly deferred.
-
-## P1 — Product spine
-
-- [ ] **Activity-first shell** — pick activity → constrained loadout workspace  
-  - AC: matches PRD three pillars; guest can browse catalog without auth.
-
-- [ ] **Stat worker prototype** — `*.worker.ts` for armor/stat math  
-  - AC: abortable; message protocol typed; unit tests for pure math.
-
-- [ ] **Groq agent contract v0** — prompt + SHA-256 cache table  
-  - AC: eval fixtures folder exists; cache hit path documented; no secrets in client.
-
-## P2 — Later
-
-- [ ] Bungie OAuth + vault sync  
-- [ ] Golden-build eval harness for gameplay agent  
-- [ ] Status badge system (activity readiness) wired to real data  
+## Backlog — Phase 2: Core Studio & Worker
+- [ ] **UI-01:** Configure `#0c0e12` Black Armory design tokens and global Header Sandbox Status indicator.
+- [ ] **UI-02:** Build Activity Selector and Three-Pillar Telemetry cards (`Survivability`, `Damage Output`, `Playstyle`).
+- [ ] **WORK-01:** Implement abortable Angular Web Worker for 0–200 armor stat min-maxing with unit tests.
+- [ ] **AI-01:** Implement `supabase/functions/generate-loop` with SHA-256 caching and Groq inference.
+- [ ] **MOB-01:** Build mobile Quick Equip drawer and virtualized Vault Search.
 
 ## Done
-
-- [x] Scaffold `.cursor/` rules, memory, docs + `AGENTS.md` (this session)
+- [x] **PLAN-01:** Defined Master PRD, PostgreSQL schema, AI agent spec, and Cursor rule architecture.
