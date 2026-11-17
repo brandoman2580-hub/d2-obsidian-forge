@@ -1,27 +1,14 @@
-# Decisions Log (ADRs)
+# Obsidian Forge — Architectural Decision Records (ADRs)
 
-> Immutable. Append only. Do not rewrite past ADRs — supersede with a new entry.
+## ADR-001: Hybrid `AGENTS.md` + Glob-Scoped `.cursor/rules/*.mdc`
+* **Context:** Need cross-agent compatibility without bloating every Cursor chat context window with irrelevant rules.
+* **Decision:** Keep `AGENTS.md` under 35 lines for CLI/build commands and directory wayfinding; isolate Angular, Web Worker, and Supabase rules into `.mdc` files with explicit `globs`.
 
-## ADR-001 — Agent operating system layout
+## ADR-002: Activity-First Domain Hierarchy
+* **Decision:** `Activity` is the root entity driving Champion counters, elemental shields, surges/threats, and boss crit/range evaluation across **Survivability**, **Damage Output**, and **Playstyle**.
 
-- **Date:** 2026-11-16
-- **Status:** Accepted
-- **Context:** Early repo (README only). Need durable cross-tool guidance without wasting tokens on always-on rules.
-- **Decision:** Use Brandin's tree: `AGENTS.md` entry + `.cursor/rules` (scoped MDC) + `.cursor/memory` (living) + `.cursor/docs` (static KB via `@docs/`).
-- **Consequences:** Agents must read memory each session; domain detail stays out of `alwaysApply` except architect workflow.
+## ADR-003: Off-Main-Thread Abortable Stat Solver
+* **Decision:** Execute all armor/mod/fragment stat permutations inside a dedicated Angular Web Worker with request cancellation tokens to guarantee zero UI frame drops.
 
-## ADR-002 — Intended frontend & data stack
-
-- **Date:** 2026-11-16
-- **Status:** Provisional (pending Brandin confirmation)
-- **Context:** No `package.json` / `supabase/` yet; product is a high-perf D2 loadout/vault web app (README).
-- **Decision:** Proceed with **Angular standalone + OnPush + Signals** for UI; **Web Workers** for build math; **Supabase (Postgres + RLS + Edge/cron)** for data; **Groq** for gameplay-agent with SHA-256 response cache.
-- **Consequences:** Scaffolding and docs assume this stack. If Brandin chooses differently, supersede this ADR and update rules/docs — do not silently diverge.
-
-## ADR-003 — Activity-first product model
-
-- **Date:** 2026-11-16
-- **Status:** Provisional (from PRD stub)
-- **Context:** Loadout tools often start from inventory; Obsidian Forge prioritizes activity context.
-- **Decision:** UX and data flows are **activity-first** (see `.cursor/docs/01-master-prd.md`): choose activity → constrained recommendations → vault/loadout actions.
-- **Consequences:** Features that invert this (vault-first as primary nav) need explicit product approval.
+## ADR-004: Deterministic SHA-256 Caching for Groq Gameplay Loops
+* **Decision:** Cache generated rotations by `SHA-256(activity + subclass + exotic + sorted_weapons + sorted_mods + patch_version)` in PostgreSQL before calling Groq LPU inference.
