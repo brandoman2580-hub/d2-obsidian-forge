@@ -1,29 +1,12 @@
 ---
-description: Off-main-thread build math and abortable worker contracts
-globs: "**/*.worker.ts"
+description: Off-main-thread Web Worker rules for Destiny 2 armor stat min-maxing and build math
+globs: src/**/*.worker.ts, src/**/stat-solver/**/*.ts
+alwaysApply: false
 ---
 
-# Stat Worker
+# Stat Min-Maxer Web Worker Rules
 
-Build math, armor stat distributions, and simulation loops run **off the main thread**.
-
-## Contracts
-
-- Export a clear message protocol (`type` discriminant). No unstructured `postMessage` payloads.
-- Support **AbortSignal** (or equivalent cancel token) for long runs; tear down promptly on abort.
-- Keep workers pure: no DOM, no Angular DI, no Supabase clients inside workers.
-- Input/output types live in a shared types module imported by both main and worker (avoid circular imports).
-- Prefer transferable objects / typed arrays for large numeric buffers when volume warrants it.
-
-## Performance
-
-- Debounce / coalesce rapid UI-driven recalcs on the main thread before posting.
-- Never block the worker event loop with sync I/O.
-- Surface progress only when useful; do not spam the UI thread.
-
-## Testing
-
-- Unit-test pure math functions outside the worker wrapper.
-- Smoke-test cancel paths (abort mid-calc must leave UI in a consistent state).
-
-If worker file layout is not yet decided, propose under `src/` and record the choice as an ADR — do not silently invent multiple competing patterns.
+* **Zero Main-Thread Blocking:** All armor permutation loops, 0–200 stat tier solving, artifice mod allocations, and fragment stat deltas must run inside a dedicated Web Worker.
+* **Typed Worker Protocol:** Define strict discriminated union types (`StatWorkerCommand` / `StatWorkerEvent`) in `src/app/core/models/worker-protocol.model.ts`.
+* **Abortable Execution:** Implement request IDs or `AbortController` tokens so stale permutation runs terminate immediately when the user toggles an exotic, stat priority, or activity modifier.
+* **Determinism & Tests:** Keep pure stat-scoring functions decoupled from `self.postMessage` so they can be unit-tested synchronously in `*.spec.ts`.
