@@ -1,35 +1,22 @@
 ---
-description: Angular UI standards — standalone OnPush, Signals, Black Armory bans
-globs: src/**
+description: Angular 19+ standalone architecture, Signals, and Black Armory UI/UX guardrails
+globs: src/**/*.ts, src/**/*.html, src/**/*.css
+alwaysApply: false
 ---
 
-# Angular — Black Armory UI
+# Angular & Black Armory UI Guardrails
 
-Target stack (intent; confirm when `package.json` lands): Angular standalone components, `ChangeDetectionStrategy.OnPush`, Signals for local UI state.
+## 1. Angular Architecture
+* **Component Model:** Use `standalone: true`, `ChangeDetectionStrategy.OnPush`, and Angular Signals (`signal`, `computed`, `effect`) for reactive state.
+* **Granularity & Naming:** Follow Atomic Design (`atoms/`, `molecules/`, `organisms/`, `features/`). Use `kebab-case` for files/folders, `PascalCase` for classes, and `camelCase` for signals/methods.
+* **Dual Form Factor:**
+  * Desktop: Multi-panel loadout matrix + Three-Pillar telemetry (`Survivability`, `Damage Output`, `Playstyle`).
+  * Mobile: One-tap **Quick Equip** header/drawer and virtualized **Vault Search** (`@angular/cdk/scrolling`).
 
-## Required patterns
-
-- **Standalone only** — no NgModules for feature UI.
-- **OnPush everywhere** — inputs via `input()` / `input.required()`; outputs via `output()`.
-- **Signals** — `signal`, `computed`, `effect` for component state; avoid dual Sources of Truth with RxJS.
-- Prefer `inject()` over constructor DI for new code.
-- Keep templates dumb: no heavy math in templates — push to workers (see `20-stat-worker.mdc`).
-
-## UI bans
-
-- No Material / Bootstrap / generic admin-dashboard chrome unless Brandin explicitly opts in.
-- No nested scroll traps; one clear primary scroll region per view.
-- No card-soup: cards only when they wrap a real interaction.
-- No emoji as UI affordances; use icon system once chosen (TODO).
-- Guest mode and status badges must remain readable without color alone (see `@docs/01-master-prd.md`).
-
-## Structure (when scaffolding)
-
-```
-src/app/
-  core/        # auth, API clients, guards
-  shared/      # dumb UI primitives
-  features/    # activity, loadout, vault, agent
-```
-
-Mark deviations in `progress.md`. Do not invent routes/services that contradict the PRD.
+## 2. Black Armory Visual & Accessibility Rules
+* **Palette:** Monochrome obsidian/charcoal surfaces (`#0c0e12` base) with high-contrast crimson, amber, and cyan semantic accents defined via CSS custom properties in global styles.
+* **Strict Visual Bans:**
+  * NO Material/MUI/Chakra stock styling or ripple effects.
+  * NO decorative background grid lines or static line animations.
+  * NO unbordered chamfered/clipped corners (every angled cut requires a crisp border).
+* **Motion & A11y:** Use smooth `ease-in-out` CSS transitions (`150ms–200ms`). Enforce WCAG AA contrast, semantic HTML, and full keyboard navigation across gear slots.
