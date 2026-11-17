@@ -1,26 +1,15 @@
-# Obsidian Forge — Agent Entry
+# Obsidian Forge — Repository Wayfinding
 
-Destiny 2 loadout crafting, build-math simulation, and vault management (Angular + Supabase). Repo is early: no `package.json` / `src/` / `supabase/` yet — treat `.cursor/docs/` as intent, not implemented APIs.
+## Core Commands
+* **Dev Server:** `npm start` (`ng serve`)
+* **Build Gate:** `npm run lint && npm run build` (Must pass before closing any task)
+* **Unit Tests:** `npm test` (`ng test --watch=false`)
+* **Supabase Local:** `npx supabase start` / `npx supabase db reset`
 
-## Commands
-
-```bash
-# TODO: fill once package.json lands
-npm install
-npm start          # Angular app
-npm test
-npm run build
-npx supabase start # local Supabase (when supabase/ exists)
-```
-
-## Wayfinding
-
-| Path | Purpose |
-|------|---------|
-| `.cursor/rules/` | Scoped MDC rules (alwaysApply vs globs) |
-| `.cursor/memory/` | Living session state — read/update every session |
-| `.cursor/docs/` | Static KB — pull with `@docs/` only when needed |
-
-**Start every session:** read `.cursor/memory/active-context.md` → `tasks.md` → append `progress.md`.
-
-**Do not invent APIs** that contradict docs or an empty tree; mark unknowns and ask Brandin.
+## Session State & Knowledge Map
+* **Current State:** Read `.cursor/memory/active-context.md` and `.cursor/memory/tasks.md` at session start.
+* **Domain Specs (Load on Demand):**
+  * Product & Pillars: `.cursor/docs/01-master-prd.md`
+  * Database & Cron Pipelines: `.cursor/docs/02-data-schema.md`
+  * AI Gameplay Loop Agent: `.cursor/docs/03-ai-gameplay-agent.md`
+* **Rule Enforcement:** Domain rules live in `.cursor/rules/*.mdc` and auto-attach by file path.
