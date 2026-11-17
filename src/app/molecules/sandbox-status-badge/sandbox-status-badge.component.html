@@ -1,0 +1,27 @@
+<aside class="sandbox-badge" aria-label="Sandbox status">
+  <span class="sandbox-badge__label">Sandbox Status</span>
+  <dl class="sandbox-badge__grid">
+    <div class="sandbox-badge__item">
+      <dt>Season</dt>
+      <dd>{{ status().season }}</dd>
+    </div>
+    <div class="sandbox-badge__item">
+      <dt>Patch</dt>
+      <dd>{{ status().patch }}</dd>
+    </div>
+    <div class="sandbox-badge__item">
+      <dt>Manifest</dt>
+      <dd>{{ status().manifestSyncedAt }}</dd>
+    </div>
+    <div class="sandbox-badge__item">
+      <dt>Compendium</dt>
+      <dd
+        class="sandbox-badge__flag"
+        [class.sandbox-badge__flag--verified]="status().compendium === 'VERIFIED'"
+        [class.sandbox-badge__flag--provisional]="status().compendium === 'PROVISIONAL'"
+      >
+        {{ status().compendium }}
+      </dd>
+    </div>
+  </dl>
+</aside>

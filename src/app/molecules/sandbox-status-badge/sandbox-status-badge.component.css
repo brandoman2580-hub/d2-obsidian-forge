@@ -1,0 +1,55 @@
+.sandbox-badge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--ba-surface-border);
+  background: var(--ba-surface-raised);
+  font-family: var(--ba-font-mono);
+  font-size: 0.75rem;
+}
+
+.sandbox-badge__label {
+  color: var(--ba-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.sandbox-badge__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin: 0;
+}
+
+.sandbox-badge__item {
+  display: flex;
+  gap: 0.4rem;
+  align-items: baseline;
+}
+
+.sandbox-badge__item dt {
+  margin: 0;
+  color: var(--ba-text-muted);
+  font-weight: 500;
+}
+
+.sandbox-badge__item dd {
+  margin: 0;
+  color: var(--ba-text-primary);
+}
+
+.sandbox-badge__flag {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.sandbox-badge__flag--verified {
+  color: var(--ba-status-verified);
+}
+
+.sandbox-badge__flag--provisional {
+  color: var(--ba-status-provisional);
+}

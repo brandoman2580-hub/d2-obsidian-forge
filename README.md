@@ -1,2 +1,27 @@
-# OBSIDIAN FORGE
-Obsidian Forge, a high-performance, responsive web application for Destiny 2 players to craft activity-specific loadouts, simulate build math, and manage vault inventory across desktop and mobile. 
+# Obsidian Forge
+
+High-performance Destiny 2 loadout builder, combat math simulator, and vault manager — activity-first, desktop + mobile.
+
+## Quick start
+
+```bash
+npm install
+npm start
+```
+
+## Build gate
+
+```bash
+npm run lint && npm run build
+```
+
+## Scripts
+
+| Script | Command |
+|--------|---------|
+| `npm start` | `ng serve` |
+| `npm run lint` | `ng lint` |
+| `npm run build` | `ng build` |
+| `npm test` | `ng test --watch=false` |
+
+Agent wayfinding: see `AGENTS.md`.
