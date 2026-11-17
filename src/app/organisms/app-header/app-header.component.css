@@ -1,0 +1,37 @@
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--ba-surface-border);
+  background: linear-gradient(
+    180deg,
+    var(--ba-surface-raised) 0%,
+    var(--ba-surface-base) 100%
+  );
+}
+
+.app-header__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 12rem;
+}
+
+.app-header__mark {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ba-text-primary);
+}
+
+.app-header__mode {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--ba-accent-crimson);
+  letter-spacing: 0.03em;
+}

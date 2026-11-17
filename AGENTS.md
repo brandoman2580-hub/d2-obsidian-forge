@@ -1,6 +1,7 @@
 # Obsidian Forge — Repository Wayfinding
 
 ## Core Commands
+* **Stack:** Angular 19.2 (standalone + Signals); Node via local `npm` / `@angular/cli`
 * **Dev Server:** `npm start` (`ng serve`)
 * **Build Gate:** `npm run lint && npm run build` (Must pass before closing any task)
 * **Unit Tests:** `npm test` (`ng test --watch=false`)

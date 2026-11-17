@@ -1,0 +1,70 @@
+/* Obsidian Forge — Black Armory design tokens */
+:root {
+  /* Surfaces */
+  --ba-surface-base: #0c0e12;
+  --ba-surface-raised: #141820;
+  --ba-surface-panel: #1a1f2a;
+  --ba-surface-border: #2a3140;
+
+  /* Text */
+  --ba-text-primary: #e8ecf4;
+  --ba-text-muted: #9aa3b5;
+  --ba-text-dim: #6b7385;
+
+  /* Semantic accents */
+  --ba-accent-crimson: #e11d48;
+  --ba-accent-amber: #f59e0b;
+  --ba-accent-cyan: #22d3ee;
+
+  /* Status */
+  --ba-status-verified: var(--ba-accent-cyan);
+  --ba-status-provisional: var(--ba-accent-amber);
+  --ba-status-danger: var(--ba-accent-crimson);
+
+  /* Motion */
+  --ba-ease: ease-in-out;
+  --ba-duration: 160ms;
+
+  /* Type */
+  --ba-font-sans: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ba-font-mono: "Cascadia Code", "Consolas", "Courier New", monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--ba-font-sans);
+  background: var(--ba-surface-base);
+  color: var(--ba-text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--ba-accent-cyan);
+  transition: color var(--ba-duration) var(--ba-ease);
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--ba-text-primary);
+}
+
+button {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ba-accent-cyan);
+  outline-offset: 2px;
+}
