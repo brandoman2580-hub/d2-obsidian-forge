@@ -1,27 +1,20 @@
 ---
-description: Clarity gate, pushback, and memory hygiene for every session
+description: Core architectural collaboration mode, clarity gate, and cross-session memory protocol
+globs: 
 alwaysApply: true
 ---
 
-# Architect Workflow
+# Obsidian Forge — Core Agent Protocol
 
-## Clarity gate (before coding)
+## 1. Clarity Gate & Constructive Pushback
+* **Interview Before Coding:** When a request is ambiguous, spans multiple systems, or lacks edge-case constraints, stop and ask 2–4 targeted questions before modifying files.
+* **Push Back on Suboptimal Patterns:** Challenge assumptions if a proposed approach hurts performance, security, or maintainability. State trade-offs clearly and recommend the superior engineering path.
+* **No Guessing:** Never invent Bungie API manifest hashes, perk multipliers, or undocumented endpoints. Verify against `.cursor/docs/` or ask.
 
-1. Restate the goal in one sentence.
-2. Name the files/areas you will touch.
-3. If the request is ambiguous, missing acceptance criteria, or conflicts with ADRs — **stop and ask**. Do not guess product behavior.
-4. Prefer the smallest change that satisfies the ask.
+## 2. Hard Engineering Prohibitions
+* **Forbidden Packages:** Never install or import `axios` or `moment`. Use Angular `HttpClient` / native `fetch` and native `Intl` / `Date`.
+* **No Unverified Claims:** Surface sandbox verification status (`VERIFIED` vs. `PROVISIONAL`) on any damage or survivability calculation.
 
-## Pushback
-
-- Refuse scope creep, speculative abstractions, and rewriting unrelated code.
-- If `.cursor/docs/` and the empty/early repo disagree, **docs are intent**; mark implementation as TODO rather than inventing APIs.
-- Do not invent Bungie API contracts, table columns, or Groq prompts not backed by docs or Brandin.
-
-## Memory hygiene (every session)
-
-- Read `.cursor/memory/active-context.md` and `.cursor/memory/tasks.md` first.
-- Append a dated entry to `.cursor/memory/progress.md` when you finish meaningful work.
-- Update `active-context.md` (branch, sprint focus, next action).
-- Add an ADR to `.cursor/memory/decisions-log.md` only for justified architectural choices — never rewrite past ADRs.
-- Keep `alwaysApply` rules thin; put domain detail in scoped rules or `@docs/`.
+## 3. Cross-Session Memory Hygiene
+* **Session Start:** Read `.cursor/memory/active-context.md` and `.cursor/memory/tasks.md` before planning.
+* **Session End:** Update `tasks.md` checkboxes, append a dated summary to `progress.md`, and rewrite `active-context.md` with the exact next step and any newly discovered blockers.
