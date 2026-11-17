@@ -1,30 +1,20 @@
 ---
-description: Supabase RLS, Zod validation, and Groq SHA-256 cache discipline
-globs: supabase/**
+description: Supabase PostgreSQL schemas, RLS policies, Edge Functions, and Groq AI agent contracts
+globs: supabase/**/*
+alwaysApply: false
 ---
 
-# Supabase Pipelines
+# Supabase, Ingestion & AI Agent Standards
 
-## Security
+## 1. Security & Auth
+* **Bungie OAuth:** Exchange authorization codes and refresh tokens exclusively inside `supabase/functions/bungie-auth`. Never expose client secrets or raw refresh tokens to the browser.
+* **Row-Level Security:** Every user table (`user_loadouts`) must enforce `auth.uid() = user_id` for writes/private reads, plus explicit `is_public = true` policies for Guest Mode viewing.
 
-- **RLS on every user table** — no `USING (true)` for authenticated write paths unless explicitly justified in an ADR.
-- Service role keys stay server-side / Edge Functions only — never in Angular bundles.
-- Guest mode: read public/catalog data only; no cross-user vault access (see `@docs/01-master-prd.md`).
+## 2. Manifest & Compendium Ingestion
+* Validate all external Bungie Manifest and Destiny 2 Compendium payloads with **Zod** schemas before database upserts.
+* Tag unverified early-season sandbox entries with `is_verified = false` and update `sandbox_manifest_meta`.
 
-## Validation
-
-- Validate all Edge Function / RPC inputs with **Zod** (or agreed schema lib) at the boundary.
-- Reject unknown fields; return typed error shapes the client can map.
-
-## Ingestion & AI cache
-
-- Cron / scheduled ingestion pipelines: idempotent upserts keyed by stable external IDs.
-- Groq (or AI) responses: cache by **SHA-256** of the canonical prompt + model id + relevant build fingerprint (see `@docs/03-ai-gameplay-agent.md`).
-- Cache hits must not re-bill; store hash, model, created_at, and payload (or storage pointer).
-
-## Migrations
-
-- One concern per migration; never edit applied migrations — add a new one.
-- Document RLS policy intent in migration comments when non-obvious.
-
-If `supabase/` is missing, scaffold only what the task requires and update `@docs/02-data-schema.md` + `tasks.md`.
+## 3. AI Gameplay Loop Agent (`supabase/functions/generate-loop`)
+* **SHA-256 Cache First:** Compute `SHA-256(activity_id + subclass_hash + exotic_hash + sorted_weapon_hashes + sorted_mod_hashes + patch_version)`. Return cached markdown immediately on hit (`<50ms`).
+* **Compact Context Only:** Strip bloated Bungie JSON; pass only pre-resolved perk names, champion counters, and deterministic warnings to Groq.
+* **Strict Output Contract:** Enforce a 4-section markdown response under 250 words: `1. Combat Loop`, `2. Champion & Shield Counters`, `3. Boss DPS Rotation`, `4. Critical Watchouts`.
