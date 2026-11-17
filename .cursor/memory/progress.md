@@ -1,11 +1,6 @@
-# Progress Log
+# Obsidian Forge — Chronological Progress Log
 
-> Append-only. Newest entries at the bottom.
-
-## 2026-11-16 — Cursor OS scaffold
-
-- Inspected repo: only `README.md` (Obsidian Forge product blurb); remote `origin` present; `main` clean.
-- Created branch `cursor/scaffold-cursor-rules-tree-4684`.
-- Added `AGENTS.md` and `.cursor/{rules,memory,docs}` tree per Brandin's layout.
-- Grounded content in README + annotated intent; marked stack/API unknowns as TODO.
-- No application code written.
+## 2026-11-16 — Session 1
+* **Summary:** Architected production Cursor repository layout separating cross-tool `AGENTS.md` wayfinding, glob-scoped `.cursor/rules/*.mdc` guardrails, `.cursor/memory/` state tracking, and `.cursor/docs/` reference specs.
+* **Artifacts Defined:** `AGENTS.md`, `00-architect-workflow.mdc`, `10-angular-black-armory.mdc`, `20-stat-worker.mdc`, `30-supabase-pipelines.mdc`, plus memory and doc templates.
+* **Next Session Goal:** Run `INFRA-02` build verification and draft `DB-01` Supabase SQL migration.
