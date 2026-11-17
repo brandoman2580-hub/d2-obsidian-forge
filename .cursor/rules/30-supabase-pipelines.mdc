@@ -1,0 +1,20 @@
+---
+description: Supabase PostgreSQL schemas, RLS policies, Edge Functions, and Groq AI agent contracts
+globs: supabase/**/*
+alwaysApply: false
+---
+
+# Supabase, Ingestion & AI Agent Standards
+
+## 1. Security & Auth
+* **Bungie OAuth:** Exchange authorization codes and refresh tokens exclusively inside `supabase/functions/bungie-auth`. Never expose client secrets or raw refresh tokens to the browser.
+* **Row-Level Security:** Every user table (`user_loadouts`) must enforce `auth.uid() = user_id` for writes/private reads, plus explicit `is_public = true` policies for Guest Mode viewing.
+
+## 2. Manifest & Compendium Ingestion
+* Validate all external Bungie Manifest and Destiny 2 Compendium payloads with **Zod** schemas before database upserts.
+* Tag unverified early-season sandbox entries with `is_verified = false` and update `sandbox_manifest_meta`.
+
+## 3. AI Gameplay Loop Agent (`supabase/functions/generate-loop`)
+* **SHA-256 Cache First:** Compute `SHA-256(activity_id + subclass_hash + exotic_hash + sorted_weapon_hashes + sorted_mod_hashes + patch_version)`. Return cached markdown immediately on hit (`<50ms`).
+* **Compact Context Only:** Strip bloated Bungie JSON; pass only pre-resolved perk names, champion counters, and deterministic warnings to Groq.
+* **Strict Output Contract:** Enforce a 4-section markdown response under 250 words: `1. Combat Loop`, `2. Champion & Shield Counters`, `3. Boss DPS Rotation`, `4. Critical Watchouts`.

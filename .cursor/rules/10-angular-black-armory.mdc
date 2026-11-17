@@ -1,0 +1,22 @@
+---
+description: Angular 19+ standalone architecture, Signals, and Black Armory UI/UX guardrails
+globs: src/**/*.ts, src/**/*.html, src/**/*.css
+alwaysApply: false
+---
+
+# Angular & Black Armory UI Guardrails
+
+## 1. Angular Architecture
+* **Component Model:** Use `standalone: true`, `ChangeDetectionStrategy.OnPush`, and Angular Signals (`signal`, `computed`, `effect`) for reactive state.
+* **Granularity & Naming:** Follow Atomic Design (`atoms/`, `molecules/`, `organisms/`, `features/`). Use `kebab-case` for files/folders, `PascalCase` for classes, and `camelCase` for signals/methods.
+* **Dual Form Factor:**
+  * Desktop: Multi-panel loadout matrix + Three-Pillar telemetry (`Survivability`, `Damage Output`, `Playstyle`).
+  * Mobile: One-tap **Quick Equip** header/drawer and virtualized **Vault Search** (`@angular/cdk/scrolling`).
+
+## 2. Black Armory Visual & Accessibility Rules
+* **Palette:** Monochrome obsidian/charcoal surfaces (`#0c0e12` base) with high-contrast crimson, amber, and cyan semantic accents defined via CSS custom properties in global styles.
+* **Strict Visual Bans:**
+  * NO Material/MUI/Chakra stock styling or ripple effects.
+  * NO decorative background grid lines or static line animations.
+  * NO unbordered chamfered/clipped corners (every angled cut requires a crisp border).
+* **Motion & A11y:** Use smooth `ease-in-out` CSS transitions (`150ms–200ms`). Enforce WCAG AA contrast, semantic HTML, and full keyboard navigation across gear slots.

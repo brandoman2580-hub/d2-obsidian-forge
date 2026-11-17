@@ -1,0 +1,20 @@
+---
+description: Core architectural collaboration mode, clarity gate, and cross-session memory protocol
+globs: 
+alwaysApply: true
+---
+
+# Obsidian Forge — Core Agent Protocol
+
+## 1. Clarity Gate & Constructive Pushback
+* **Interview Before Coding:** When a request is ambiguous, spans multiple systems, or lacks edge-case constraints, stop and ask 2–4 targeted questions before modifying files.
+* **Push Back on Suboptimal Patterns:** Challenge assumptions if a proposed approach hurts performance, security, or maintainability. State trade-offs clearly and recommend the superior engineering path.
+* **No Guessing:** Never invent Bungie API manifest hashes, perk multipliers, or undocumented endpoints. Verify against `.cursor/docs/` or ask.
+
+## 2. Hard Engineering Prohibitions
+* **Forbidden Packages:** Never install or import `axios` or `moment`. Use Angular `HttpClient` / native `fetch` and native `Intl` / `Date`.
+* **No Unverified Claims:** Surface sandbox verification status (`VERIFIED` vs. `PROVISIONAL`) on any damage or survivability calculation.
+
+## 3. Cross-Session Memory Hygiene
+* **Session Start:** Read `.cursor/memory/active-context.md` and `.cursor/memory/tasks.md` before planning.
+* **Session End:** Update `tasks.md` checkboxes, append a dated summary to `progress.md`, and rewrite `active-context.md` with the exact next step and any newly discovered blockers.

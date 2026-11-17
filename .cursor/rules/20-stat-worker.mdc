@@ -1,0 +1,12 @@
+---
+description: Off-main-thread Web Worker rules for Destiny 2 armor stat min-maxing and build math
+globs: src/**/*.worker.ts, src/**/stat-solver/**/*.ts
+alwaysApply: false
+---
+
+# Stat Min-Maxer Web Worker Rules
+
+* **Zero Main-Thread Blocking:** All armor permutation loops, 0–200 stat tier solving, artifice mod allocations, and fragment stat deltas must run inside a dedicated Web Worker.
+* **Typed Worker Protocol:** Define strict discriminated union types (`StatWorkerCommand` / `StatWorkerEvent`) in `src/app/core/models/worker-protocol.model.ts`.
+* **Abortable Execution:** Implement request IDs or `AbortController` tokens so stale permutation runs terminate immediately when the user toggles an exotic, stat priority, or activity modifier.
+* **Determinism & Tests:** Keep pure stat-scoring functions decoupled from `self.postMessage` so they can be unit-tested synchronously in `*.spec.ts`.
