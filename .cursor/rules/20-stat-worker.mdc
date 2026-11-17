@@ -1,0 +1,29 @@
+---
+description: Off-main-thread build math and abortable worker contracts
+globs: "**/*.worker.ts"
+---
+
+# Stat Worker
+
+Build math, armor stat distributions, and simulation loops run **off the main thread**.
+
+## Contracts
+
+- Export a clear message protocol (`type` discriminant). No unstructured `postMessage` payloads.
+- Support **AbortSignal** (or equivalent cancel token) for long runs; tear down promptly on abort.
+- Keep workers pure: no DOM, no Angular DI, no Supabase clients inside workers.
+- Input/output types live in a shared types module imported by both main and worker (avoid circular imports).
+- Prefer transferable objects / typed arrays for large numeric buffers when volume warrants it.
+
+## Performance
+
+- Debounce / coalesce rapid UI-driven recalcs on the main thread before posting.
+- Never block the worker event loop with sync I/O.
+- Surface progress only when useful; do not spam the UI thread.
+
+## Testing
+
+- Unit-test pure math functions outside the worker wrapper.
+- Smoke-test cancel paths (abort mid-calc must leave UI in a consistent state).
+
+If worker file layout is not yet decided, propose under `src/` and record the choice as an ADR — do not silently invent multiple competing patterns.

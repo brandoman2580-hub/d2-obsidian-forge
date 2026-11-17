@@ -1,0 +1,30 @@
+---
+description: Supabase RLS, Zod validation, and Groq SHA-256 cache discipline
+globs: supabase/**
+---
+
+# Supabase Pipelines
+
+## Security
+
+- **RLS on every user table** — no `USING (true)` for authenticated write paths unless explicitly justified in an ADR.
+- Service role keys stay server-side / Edge Functions only — never in Angular bundles.
+- Guest mode: read public/catalog data only; no cross-user vault access (see `@docs/01-master-prd.md`).
+
+## Validation
+
+- Validate all Edge Function / RPC inputs with **Zod** (or agreed schema lib) at the boundary.
+- Reject unknown fields; return typed error shapes the client can map.
+
+## Ingestion & AI cache
+
+- Cron / scheduled ingestion pipelines: idempotent upserts keyed by stable external IDs.
+- Groq (or AI) responses: cache by **SHA-256** of the canonical prompt + model id + relevant build fingerprint (see `@docs/03-ai-gameplay-agent.md`).
+- Cache hits must not re-bill; store hash, model, created_at, and payload (or storage pointer).
+
+## Migrations
+
+- One concern per migration; never edit applied migrations — add a new one.
+- Document RLS policy intent in migration comments when non-obvious.
+
+If `supabase/` is missing, scaffold only what the task requires and update `@docs/02-data-schema.md` + `tasks.md`.
